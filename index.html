@@ -3,37 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>追光 ✨ 星光日记</title>
+    <title>追光 ✨ 追星成长助手</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 40%, #f3e8ff 100%);
+            background: #0b0719;
             min-height: 100vh;
-            padding: 20px;
+            padding: 16px 12px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* 星空背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.30) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(236, 72, 153, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                #0b0719;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 10% 20%, #fff, transparent),
+                radial-gradient(2px 2px at 30% 60%, #fff, transparent),
+                radial-gradient(1px 1px at 50% 10%, #fff, transparent),
+                radial-gradient(2px 2px at 70% 80%, #fff, transparent),
+                radial-gradient(1px 1px at 90% 30%, #fff, transparent),
+                radial-gradient(2px 2px at 15% 85%, #fff, transparent),
+                radial-gradient(1px 1px at 55% 45%, #fff, transparent),
+                radial-gradient(2px 2px at 85% 65%, #fff, transparent),
+                radial-gradient(1px 1px at 40% 30%, #fff, transparent),
+                radial-gradient(2px 2px at 95% 90%, #fff, transparent),
+                radial-gradient(1px 1px at 5% 50%, #fff, transparent),
+                radial-gradient(2px 2px at 75% 15%, #fff, transparent);
+            background-size: 200px 200px;
+            background-repeat: repeat;
+            opacity: 0.5;
+            z-index: -1;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        /* 头部 */
         .header {
             text-align: center;
-            padding: 30px 20px 10px;
+            padding: 20px 20px 6px;
             position: relative;
         }
         .header::before {
             content: "🌟";
-            font-size: 44px;
+            font-size: 40px;
             display: block;
-            margin-bottom: 6px;
-            animation: twinkle 2s ease-in-out infinite;
+            margin-bottom: 4px;
+            animation: twinkleStar 2s ease-in-out infinite;
         }
-        @keyframes twinkle {
+        @keyframes twinkleStar {
             0%, 100% { transform: scale(1) rotate(0deg); }
             50% { transform: scale(1.1) rotate(5deg); }
         }
         .header h1 {
-            font-size: 30px;
-            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            font-size: 28px;
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -42,227 +89,218 @@
         }
         .header p {
             color: #a78bfa;
-            font-size: 14px;
-            margin-top: 4px;
-            opacity: 0.9;
-            font-weight: 500;
+            font-size: 13px;
+            margin-top: 2px;
+            opacity: 0.85;
+            font-weight: 400;
+            -webkit-text-fill-color: #a78bfa;
         }
 
-        /* Tab 切换按钮 */
+        /* Tab 按钮 - 两行 */
         .tabs {
             display: flex;
-            gap: 8px;
-            margin: 16px 0 8px;
+            gap: 6px;
+            margin: 10px 0 6px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .tabs button {
-            flex: 1;
-            padding: 10px 0;
+            flex: 1 0 auto;
+            padding: 8px 10px;
             border: none;
-            border-radius: 50px;
-            font-size: 13px;
+            border-radius: 40px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.5);
-            color: #7c3aed;
+            transition: all 0.25s ease;
+            background: rgba(255,255,255,0.08);
+            color: #c4b5fd;
             box-shadow: none;
+            min-width: 56px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .tabs button.active {
             background: linear-gradient(135deg, #8b5cf6, #ec4899);
             color: white;
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.30);
+            border-color: transparent;
         }
-        .tabs button:hover { transform: translateY(-2px); }
+        .tabs button:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.14);
+        }
+        .tabs button.active:hover {
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+        }
 
-        /* 通用卡片 */
+        /* 卡片 */
         .card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 24px 20px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 20px 18px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.13);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            margin: 8px 0 20px;
+            max-width: 440px;
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.40);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 6px 0 16px;
         }
 
         .card label {
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: #6d28d9;
+            color: #c4b5fd;
             margin-bottom: 6px;
+            letter-spacing: 0.3px;
         }
+
         .card input, .card textarea {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #ede9fe;
-            border-radius: 18px;
-            font-size: 15px;
-            background: white;
-            margin-bottom: 16px;
+            padding: 12px 14px;
+            border: 1.5px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            font-size: 14px;
+            background: rgba(0,0,0,0.30);
+            margin-bottom: 14px;
             transition: all 0.3s ease;
             outline: none;
             font-family: inherit;
-            color: #1e1b4b;
+            color: #e5e7eb;
         }
         .card input:focus, .card textarea:focus {
             border-color: #8b5cf6;
-            box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.12);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+            background: rgba(0,0,0,0.45);
         }
-        .card textarea { min-height: 80px; resize: vertical; }
+        .card input::placeholder, .card textarea::placeholder {
+            color: #6b7280;
+        }
+        .card textarea {
+            min-height: 72px;
+            resize: vertical;
+        }
 
         .btn-primary {
             background: linear-gradient(135deg, #8b5cf6, #ec4899);
             color: white;
             border: none;
-            padding: 14px 0;
+            padding: 13px 0;
             width: 100%;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 28px rgba(139, 92, 246, 0.35);
-            letter-spacing: 1px;
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.30);
+            letter-spacing: 0.5px;
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 14px 36px rgba(139, 92, 246, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(139, 92, 246, 0.40);
         }
         .btn-primary:active { transform: scale(0.97); }
         .btn-primary:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
 
-        /* 对话/聊天区域 */
-        .chat-box {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 16px;
-            padding-right: 4px;
+        /* 列表 & 结果 */
+        .list-container {
+            width: 100%;
+            max-width: 440px;
         }
-        .chat-box::-webkit-scrollbar { width: 4px; }
-        .chat-box::-webkit-scrollbar-thumb { background: #c4b5fd; border-radius: 10px; }
-
-        .chat-msg {
-            padding: 12px 16px;
-            border-radius: 18px;
+        .list-container h2 {
+            font-size: 16px;
+            color: #c4b5fd;
             margin-bottom: 10px;
-            max-width: 90%;
-            line-height: 1.6;
-            font-size: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .chat-msg.user {
-            background: linear-gradient(135deg, #ede9fe, #fce7f3);
-            color: #1e1b4b;
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-        }
-        .chat-msg.ai {
-            background: white;
-            color: #1e1b4b;
-            margin-right: auto;
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .chat-msg .role-tag {
-            font-size: 11px;
             font-weight: 600;
-            color: #8b5cf6;
-            display: block;
-            margin-bottom: 2px;
         }
 
-        .typing-indicator {
-            display: none;
-            color: #a78bfa;
-            font-size: 14px;
-            padding: 8px 0;
-            animation: pulse 1.2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-
-        /* 日记列表 */
-        .diary-list { width: 100%; max-width: 420px; }
-        .diary-list h2 {
-            font-size: 18px;
-            color: #4c1d95;
-            margin-bottom: 14px;
-            font-weight: 700;
-        }
         .entry-item {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 18px;
             padding: 16px 18px;
             margin-bottom: 12px;
-            border-left: 5px solid;
-            border-image: linear-gradient(180deg, #8b5cf6, #ec4899) 1;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border-left: 4px solid #8b5cf6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .entry-item .entry-date { font-size: 12px; color: #8b5cf6; font-weight: 700; }
-        .entry-item .entry-text { font-size: 15px; color: #1e1b4b; margin-top: 4px; line-height: 1.6; }
-        .empty-tip { text-align: center; color: #c4b5fd; font-size: 15px; padding: 30px 0; line-height: 2; }
+        .entry-item .entry-date {
+            font-size: 11px;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+        .entry-item .entry-text {
+            font-size: 14px;
+            color: #e5e7eb;
+            margin-top: 4px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .entry-item .entry-text br {
+            display: block;
+            margin: 4px 0;
+        }
 
-        /* 成长地图专用样式：目标卡片 */
+        .empty-tip {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding: 28px 0;
+            line-height: 1.8;
+        }
+
+        /* 日记特殊 */
         .goal-item {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            border-left: 5px solid #fbbf24;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 18px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f59e0b;
             display: flex;
             align-items: flex-start;
             gap: 12px;
         }
         .goal-item .goal-check {
-            margin-top: 2px;
             font-size: 20px;
             cursor: pointer;
             flex-shrink: 0;
+            margin-top: 1px;
         }
         .goal-item .goal-content {
             flex: 1;
         }
         .goal-item .goal-content .goal-week {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            color: #f59e0b;
+            color: #fbbf24;
         }
         .goal-item .goal-content .goal-text {
-            font-size: 15px;
-            color: #1e1b4b;
+            font-size: 14px;
+            color: #e5e7eb;
             margin-top: 2px;
             line-height: 1.5;
         }
-        .goal-item.done {
-            opacity: 0.6;
-        }
-        .goal-item.done .goal-text {
-            text-decoration: line-through;
-        }
+        .goal-item.done { opacity: 0.5; }
+        .goal-item.done .goal-text { text-decoration: line-through; }
 
         .page { display: none; }
         .page.active { display: block; }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
     </style>
 </head>
 <body>
@@ -272,14 +310,20 @@
     <p>今天，你又靠近光了一点</p>
 </div>
 
-<!-- Tab 切换：现在是三个Tab了 -->
+<!-- Tab 第一行 -->
 <div class="tabs">
     <button class="active" onclick="switchTab('diary')">📖 星光日记</button>
     <button onclick="switchTab('mirror')">🪞 清醒镜</button>
     <button onclick="switchTab('map')">🗺️ 成长地图</button>
 </div>
+<!-- Tab 第二行 -->
+<div class="tabs" style="margin-top:2px;">
+    <button onclick="switchTab('outfit')">💜 穿搭师</button>
+    <button onclick="switchTab('gift')">🎁 礼物坊</button>
+    <button onclick="switchTab('route')">🗺️ 路线规划</button>
+</div>
 
-<!-- ===== 页面1：星光日记 ===== -->
+<!-- ===== 1. 星光日记 ===== -->
 <div id="page-diary" class="page active">
     <div class="card">
         <label>📅 日期</label>
@@ -288,49 +332,88 @@
         <textarea id="diary-text" placeholder="比如：今天学会了一首新歌，是ta翻唱的那首…"></textarea>
         <button class="btn-primary" onclick="saveDiary()">🌟 记录今天</button>
     </div>
-    <div class="diary-list">
+    <div class="list-container">
         <h2>📖 我的星光记录</h2>
-        <div id="diary-entries"></div>
+        <div id="diary-entries"><div class="empty-tip">还没有星光记录 ✨<br>今天做了什么？写下来吧</div></div>
     </div>
 </div>
 
-<!-- ===== 页面2：追星清醒镜 ===== -->
+<!-- ===== 2. 清醒镜 ===== -->
 <div id="page-mirror" class="page">
     <div class="card">
         <label>💭 和「清醒镜」聊聊你的追星心情</label>
-        <div class="chat-box" id="chat-box">
-            <div class="chat-msg ai">
-                <span class="role-tag">🪞 清醒镜</span>
-                嗨！我是你的追星清醒镜 ✨<br>
-                来聊聊吧——无论是买周边的犹豫、追行程的纠结，还是想和偶像一样变得更好，我都在这里陪你理性思考 💜
+        <div id="chat-box" style="max-height:260px;overflow-y:auto;margin-bottom:12px;padding-right:4px;">
+            <div class="entry-item" style="border-left-color:#ec4899;">
+                <div class="entry-text">🪞 清醒镜<br>嗨！我是你的追星清醒镜 ✨<br>来聊聊吧——无论是买周边的犹豫、追行程的纠结，还是想和偶像一样变得更好，我都在这里陪你理性思考 💜</div>
             </div>
         </div>
-        <div class="typing-indicator" id="typing-indicator">🪞 清醒镜正在思考…</div>
+        <div id="typing-indicator" style="display:none;color:#a78bfa;font-size:13px;padding:4px 0 8px;">🪞 清醒镜正在思考…</div>
         <textarea id="mirror-input" placeholder="说点什么吧…比如：我好想买这张专辑，但有点贵…" rows="2"></textarea>
         <button class="btn-primary" id="mirror-btn" onclick="askMirror()">🪞 问清醒镜</button>
     </div>
 </div>
 
-<!-- ===== 页面3：成长地图 ===== -->
+<!-- ===== 3. 成长地图 ===== -->
 <div id="page-map" class="page">
     <div class="card">
         <label>🌟 你的偶像身上，最吸引你的特质是什么？</label>
         <textarea id="map-input" placeholder="比如：ta跳舞超有力量感 / ta英语特别流利 / ta做公益很温暖…" rows="2"></textarea>
         <button class="btn-primary" id="map-btn" onclick="generateMap()">🗺️ 生成成长地图</button>
     </div>
-    <div class="diary-list">
+    <div class="list-container">
         <h2>🎯 我的成长目标</h2>
-        <div id="goal-entries">
-            <div class="empty-tip">还没有成长目标 🗺️<br>输入偶像的一个特质，AI会帮你拆解成可执行的小目标！</div>
-        </div>
+        <div id="goal-entries"><div class="empty-tip">还没有成长目标 🗺️<br>输入偶像的一个特质，AI会帮你拆解成可执行的小目标！</div></div>
+    </div>
+</div>
+
+<!-- ===== 4. 应援穿搭师 ===== -->
+<div id="page-outfit" class="page">
+    <div class="card">
+        <label>💜 你的偶像应援色是什么？或者你想穿什么颜色？</label>
+        <textarea id="outfit-input" placeholder="比如：紫色 / 粉蓝色 / 我家爱豆的应援色是黄蓝色…" rows="2"></textarea>
+        <button class="btn-primary" id="outfit-btn" onclick="askOutfit()">💜 帮我搭配</button>
+    </div>
+    <div class="list-container">
+        <h2>✨ 穿搭建议</h2>
+        <div id="outfit-result"><div class="empty-tip">输入应援色或颜色，AI 会帮你推荐穿搭 🎀</div></div>
+    </div>
+</div>
+
+<!-- ===== 5. 同担礼物坊 ===== -->
+<div id="page-gift" class="page">
+    <div class="card">
+        <label>🎁 你想做什么类型的小礼物？送给同担的～</label>
+        <textarea id="gift-input" placeholder="比如：手幅 / 钥匙扣 / 小卡套 / 透卡 / 贴纸…" rows="2"></textarea>
+        <button class="btn-primary" id="gift-btn" onclick="askGift()">🎁 给我教程</button>
+    </div>
+    <div class="list-container">
+        <h2>📦 礼物制作方案</h2>
+        <div id="gift-result"><div class="empty-tip">输入你想做的礼物类型，AI 会给你详细教程和成本估算 🧵</div></div>
+    </div>
+</div>
+
+<!-- ===== 6. 追星路线规划 ===== -->
+<div id="page-route" class="page">
+    <div class="card">
+        <label>🗺️ 从哪里出发？去哪里？（比如：广州 → 深圳宝安体育馆）</label>
+        <textarea id="route-input" placeholder="比如：广州天河 → 深圳宝安体育馆，周六下午出发" rows="2"></textarea>
+        <button class="btn-primary" id="route-btn" onclick="askRoute()">🗺️ 规划路线</button>
+    </div>
+    <div class="list-container">
+        <h2>🚇 出行方案推荐</h2>
+        <div id="route-result"><div class="empty-tip">输入出发地和目的地，AI 会帮你规划最便宜/最方便的路线 🚌</div></div>
     </div>
 </div>
 
 <script>
-// ==================== DeepSeek API Key ====================
-var DEEPSEEK_API_KEY = 'sk-23f357a154db4009bc1a410881ad4e7d';  // ← 替换成你的真实Key
+// ============================================================
+// ⚠️ 重要：填入你的 DeepSeek API Key
+// ============================================================
+var DEEPSEEK_API_KEY = 'sk-3de7761d8c6e42e2b0deef8cc597aecb';  // ← 替换成你的真实Key
 
-// ==================== 星光日记功能 ====================
+// ============================================================
+// 1. 星光日记
+// ============================================================
 window.onload = function() {
     displayDiaries();
     loadGoals();
@@ -357,10 +440,10 @@ function displayDiaries() {
         container.innerHTML = '<div class="empty-tip">还没有星光记录 ✨<br>今天做了什么？写下来吧</div>';
         return;
     }
-    diaries.reverse();
     var html = '';
-    for (var i = 0; i < diaries.length; i++) {
-        var d = diaries[i];
+    var sorted = diaries.slice().reverse();
+    for (var i = 0; i < sorted.length; i++) {
+        var d = sorted[i];
         html += '<div class="entry-item">' +
             '<div class="entry-date">📅 ' + d.date.replace(/-/g, '/') + '</div>' +
             '<div class="entry-text">' + escapeHtml(d.text) + '</div>' +
@@ -375,51 +458,41 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// ==================== Tab 切换 ====================
+// ============================================================
+// 2. Tab 切换
+// ============================================================
 function switchTab(tab) {
-    document.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
-    document.querySelectorAll('.tabs button').forEach(function(el) { el.classList.remove('active'); });
-    if (tab === 'diary') {
-        document.getElementById('page-diary').classList.add('active');
-        document.querySelector('.tabs button:nth-child(1)').classList.add('active');
-    } else if (tab === 'mirror') {
-        document.getElementById('page-mirror').classList.add('active');
-        document.querySelector('.tabs button:nth-child(2)').classList.add('active');
-    } else {
-        document.getElementById('page-map').classList.add('active');
-        document.querySelector('.tabs button:nth-child(3)').classList.add('active');
+    var pages = ['page-diary', 'page-mirror', 'page-map', 'page-outfit', 'page-gift', 'page-route'];
+    var btns = document.querySelectorAll('.tabs button');
+    pages.forEach(function(id) { document.getElementById(id).classList.remove('active'); });
+    btns.forEach(function(b) { b.classList.remove('active'); });
+
+    var idx = pages.indexOf('page-' + tab);
+    if (idx !== -1) {
+        document.getElementById('page-' + tab).classList.add('active');
+        btns[idx].classList.add('active');
     }
 }
 
-// ==================== 追星清醒镜 ====================
+// ============================================================
+// 3. 清醒镜
+// ============================================================
 function askMirror() {
     var input = document.getElementById('mirror-input');
     var text = input.value.trim();
     if (!text) { alert('💬 说点什么吧～'); return; }
-    appendMessage('user', text);
+    appendChat('user', text);
     input.value = '';
-    input.focus();
     var btn = document.getElementById('mirror-btn');
     btn.disabled = true;
     btn.textContent = '🪞 思考中…';
     document.getElementById('typing-indicator').style.display = 'block';
 
-    var systemPrompt = 
-        '你是「追光」产品的AI模块「清醒镜」。你的角色是陪伴追星女孩理性思考，' +
-        '帮助她们在追星热情和现实生活之间找到平衡。' +
-        '你的回答风格：温暖、理性、不批判、有共情力。' +
-        '如果用户提到购买周边/专辑/演唱会，你可以温柔地提醒预算规划；' +
-        '如果用户提到情绪低落或焦虑，你可以给予情感支持并引导积极行动；' +
-        '如果用户提到想变得和偶像一样优秀，你可以鼓励并把话题引向具体的小目标。' +
-        '回答控制在100-200字左右，用第一人称，语气像知心姐姐。';
+    var systemPrompt = '你是「追光」的清醒镜。陪伴追星女孩理性思考，帮助她们在追星热情和现实生活之间找到平衡。回答风格：温暖、理性、不批判、有共情力。回答控制在100-200字，语气像知心姐姐。';
 
     callDeepSeek(systemPrompt, text)
-        .then(function(reply) {
-            appendMessage('ai', reply);
-        })
-        .catch(function(err) {
-            appendMessage('ai', '😅 哎呀，清醒镜暂时走神了… 请稍后再试！\\n\\n错误信息：' + err.message);
-        })
+        .then(function(reply) { appendChat('ai', reply); })
+        .catch(function(err) { appendChat('ai', '😅 清醒镜走神了… 请稍后再试\\n错误：' + err.message); })
         .finally(function() {
             btn.disabled = false;
             btn.textContent = '🪞 问清醒镜';
@@ -427,49 +500,33 @@ function askMirror() {
         });
 }
 
-function appendMessage(role, text) {
+function appendChat(role, text) {
     var box = document.getElementById('chat-box');
     var div = document.createElement('div');
-    div.className = 'chat-msg ' + role;
-    var tag = role === 'user' ? '💜 你' : '🪞 清醒镜';
-    div.innerHTML = '<span class="role-tag">' + tag + '</span>' + text.replace(/\\n/g, '<br>');
+    div.className = 'entry-item';
+    div.style.borderLeftColor = (role === 'user') ? '#a78bfa' : '#ec4899';
+    var label = (role === 'user') ? '💜 你' : '🪞 清醒镜';
+    div.innerHTML = '<div class="entry-text"><strong>' + label + '</strong><br>' + text.replace(/\\n/g, '<br>') + '</div>';
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
 }
 
 document.getElementById('mirror-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        document.getElementById('mirror-btn').click();
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('mirror-btn').click(); }
 });
 
-// ==================== 成长地图 ====================
+// ============================================================
+// 4. 成长地图
+// ============================================================
 function generateMap() {
     var input = document.getElementById('map-input');
     var text = input.value.trim();
     if (!text) { alert('🌟 说说你偶像最吸引你的特质吧～'); return; }
-
     var btn = document.getElementById('map-btn');
     btn.disabled = true;
     btn.textContent = '🗺️ 生成中…';
 
-    var systemPrompt = 
-        '你是「追光」产品的AI模块「成长地图」。你的任务是把用户输入的一个偶像特质，' +
-        '拆解成4个可执行的小目标，分布在4周内完成（每周一个目标）。' +
-        '目标要具体、可执行、适合普通人（不依赖天赋或专业训练）。' +
-        '请按以下格式输出，每周一行，用「第X周：」开头：\\n' +
-        '第1周：[目标描述]\\n' +
-        '第2周：[目标描述]\\n' +
-        '第3周：[目标描述]\\n' +
-        '第4周：[目标描述]\\n' +
-        '不要加其他内容，不要加序号以外的额外文字。' +
-        '示例输入：她跳舞超有力量感\\n' +
-        '示例输出：\\n' +
-        '第1周：每天跟着喜欢的女团舞视频跳10分钟，感受发力点\\n' +
-        '第2周：挑选一段30秒的副歌部分，反复练习直到能完整跟上\\n' +
-        '第3周：用手机录下自己跳舞的视频，对照原视频调整动作\\n' +
-        '第4周：把这段舞完整跳下来，并邀请朋友一起跳一次';
+    var systemPrompt = '你是「追光」的成长地图。把用户输入的一个偶像特质拆解成4个可执行的小目标，分布在4周内。按格式输出：\\n第1周：[目标]\\n第2周：[目标]\\n第3周：[目标]\\n第4周：[目标]\\n不要加其他内容。';
 
     callDeepSeek(systemPrompt, text)
         .then(function(reply) {
@@ -478,46 +535,29 @@ function generateMap() {
             renderGoals(goals);
             input.value = '';
         })
-        .catch(function(err) {
-            alert('😅 生成失败，请稍后再试\\n错误：' + err.message);
-        })
-        .finally(function() {
-            btn.disabled = false;
-            btn.textContent = '🗺️ 生成成长地图';
-        });
+        .catch(function(err) { alert('😅 生成失败\\n错误：' + err.message); })
+        .finally(function() { btn.disabled = false; btn.textContent = '🗺️ 生成成长地图'; });
 }
 
 function parseGoals(reply) {
-    // 尝试解析 "第X周：" 格式的目标
     var lines = reply.split('\\n');
     var goals = [];
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
         if (line.match(/第\\d+周[：:]/)) {
-            var text = line.replace(/第\\d+周[：:]\\s*/, '').trim();
-            if (text) {
-                goals.push({ text: text, done: false });
-            }
+            var txt = line.replace(/第\\d+周[：:]\\s*/, '').trim();
+            if (txt) goals.push({ text: txt, done: false });
         }
     }
-    // 如果没解析到，把整个回复作为一条目标
-    if (goals.length === 0) {
-        goals = [{ text: reply.replace(/\\n/g, ' '), done: false }];
-    }
+    if (goals.length === 0) goals = [{ text: reply.replace(/\\n/g, ' '), done: false }];
     return goals;
 }
 
-function saveGoals(goals) {
-    localStorage.setItem('zhuiGuangGoals', JSON.stringify(goals));
-}
-
+function saveGoals(goals) { localStorage.setItem('zhuiGuangGoals', JSON.stringify(goals)); }
 function loadGoals() {
-    var goals = JSON.parse(localStorage.getItem('zhuiGuangGoals'));
-    if (goals && goals.length > 0) {
-        renderGoals(goals);
-    }
+    var g = JSON.parse(localStorage.getItem('zhuiGuangGoals'));
+    if (g && g.length > 0) renderGoals(g);
 }
-
 function renderGoals(goals) {
     var container = document.getElementById('goal-entries');
     if (!goals || goals.length === 0) {
@@ -527,29 +567,96 @@ function renderGoals(goals) {
     var html = '';
     for (var i = 0; i < goals.length; i++) {
         var g = goals[i];
-        var doneClass = g.done ? 'done' : '';
-        var checkMark = g.done ? '✅' : '⬜';
-        html += '<div class="goal-item ' + doneClass + '">' +
-            '<span class="goal-check" onclick="toggleGoal(' + i + ')">' + checkMark + '</span>' +
-            '<div class="goal-content">' +
-            '<div class="goal-week">🎯 第 ' + (i+1) + ' 周</div>' +
-            '<div class="goal-text">' + escapeHtml(g.text) + '</div>' +
-            '</div>' +
-            '</div>';
+        var cls = g.done ? 'goal-item done' : 'goal-item';
+        var mark = g.done ? '✅' : '⬜';
+        html += '<div class="' + cls + '">' +
+            '<span class="goal-check" onclick="toggleGoal(' + i + ')">' + mark + '</span>' +
+            '<div class="goal-content"><div class="goal-week">🎯 第 ' + (i+1) + ' 周</div>' +
+            '<div class="goal-text">' + escapeHtml(g.text) + '</div></div></div>';
     }
     container.innerHTML = html;
 }
-
 function toggleGoal(index) {
     var goals = JSON.parse(localStorage.getItem('zhuiGuangGoals')) || [];
-    if (goals[index]) {
-        goals[index].done = !goals[index].done;
-        saveGoals(goals);
-        renderGoals(goals);
-    }
+    if (goals[index]) { goals[index].done = !goals[index].done; saveGoals(goals); renderGoals(goals); }
 }
 
-// ==================== DeepSeek API 通用调用 ====================
+document.getElementById('map-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('map-btn').click(); }
+});
+
+// ============================================================
+// 5. 应援穿搭师
+// ============================================================
+function askOutfit() {
+    var input = document.getElementById('outfit-input');
+    var text = input.value.trim();
+    if (!text) { alert('💜 输入一个颜色吧～'); return; }
+    var btn = document.getElementById('outfit-btn');
+    btn.disabled = true;
+    btn.textContent = '💜 思考中…';
+    var systemPrompt = '你是「追光」的穿搭师。用户告诉你应援色或颜色，推荐3套以该颜色为主调的日常穿搭，写明上衣、下装、鞋子、配饰，推荐购买平台和搜索关键词。用「第X套」开头，清晰列表。';
+    callDeepSeek(systemPrompt, text)
+        .then(function(reply) {
+            document.getElementById('outfit-result').innerHTML =
+                '<div class="entry-item" style="border-left-color:#ec4899;"><div class="entry-text">' + reply.replace(/\\n/g, '<br>') + '</div></div>';
+            input.value = '';
+        })
+        .catch(function(err) {
+            document.getElementById('outfit-result').innerHTML = '<div class="empty-tip">😅 穿搭师走神了…<br>错误：' + err.message + '</div>';
+        })
+        .finally(function() { btn.disabled = false; btn.textContent = '💜 帮我搭配'; });
+}
+
+// ============================================================
+// 6. 同担礼物坊
+// ============================================================
+function askGift() {
+    var input = document.getElementById('gift-input');
+    var text = input.value.trim();
+    if (!text) { alert('🎁 输入你想做的礼物类型～'); return; }
+    var btn = document.getElementById('gift-btn');
+    btn.disabled = true;
+    btn.textContent = '🎁 思考中…';
+    var systemPrompt = '你是「追光」的手作达人。用户告诉你一种应援小礼物类型，给出详细制作教程、材料清单、成本估算（人民币）、制作耗时、购买渠道推荐。用「材料清单」「制作步骤」「成本估算」作为小标题。';
+    callDeepSeek(systemPrompt, text)
+        .then(function(reply) {
+            document.getElementById('gift-result').innerHTML =
+                '<div class="entry-item" style="border-left-color:#f59e0b;"><div class="entry-text">' + reply.replace(/\\n/g, '<br>') + '</div></div>';
+            input.value = '';
+        })
+        .catch(function(err) {
+            document.getElementById('gift-result').innerHTML = '<div class="empty-tip">😅 礼物坊走神了…<br>错误：' + err.message + '</div>';
+        })
+        .finally(function() { btn.disabled = false; btn.textContent = '🎁 给我教程'; });
+}
+
+// ============================================================
+// 7. 追星路线规划
+// ============================================================
+function askRoute() {
+    var input = document.getElementById('route-input');
+    var text = input.value.trim();
+    if (!text) { alert('🗺️ 输入出发地和目的地～'); return; }
+    var btn = document.getElementById('route-btn');
+    btn.disabled = true;
+    btn.textContent = '🗺️ 思考中…';
+    var systemPrompt = '你是「追光」的出行规划师。用户告诉出发地和目的地，规划2-3种出行方案，标注预估时间和费用，标注「最便宜」和「最方便」推荐，提醒注意事项（如末班车）。用「方案一」「方案二」区分。';
+    callDeepSeek(systemPrompt, text)
+        .then(function(reply) {
+            document.getElementById('route-result').innerHTML =
+                '<div class="entry-item" style="border-left-color:#3b82f6;"><div class="entry-text">' + reply.replace(/\\n/g, '<br>') + '</div></div>';
+            input.value = '';
+        })
+        .catch(function(err) {
+            document.getElementById('route-result').innerHTML = '<div class="empty-tip">😅 路线规划师走神了…<br>错误：' + err.message + '</div>';
+        })
+        .finally(function() { btn.disabled = false; btn.textContent = '🗺️ 规划路线'; });
+}
+
+// ============================================================
+// 8. DeepSeek API 通用调用
+// ============================================================
 function callDeepSeek(systemPrompt, userMessage) {
     return new Promise(function(resolve, reject) {
         var url = 'https://api.deepseek.com/v1/chat/completions';
@@ -566,13 +673,13 @@ function callDeepSeek(systemPrompt, userMessage) {
                     { role: 'user', content: userMessage }
                 ],
                 temperature: 0.7,
-                max_tokens: 600
+                max_tokens: 1500
             })
         })
         .then(function(response) {
             if (!response.ok) {
                 return response.json().then(function(data) {
-                    throw new Error(data.error?.message || 'API请求失败，状态码：' + response.status);
+                    throw new Error(data.error?.message || '请求失败，状态码：' + response.status);
                 });
             }
             return response.json();
@@ -581,18 +688,19 @@ function callDeepSeek(systemPrompt, userMessage) {
             var reply = data.choices[0].message.content;
             resolve(reply);
         })
-        .catch(function(err) {
-            reject(err);
-        });
+        .catch(function(err) { reject(err); });
     });
 }
 
-// 回车发送（清醒镜已支持，成长地图也加上）
-document.getElementById('map-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        document.getElementById('map-btn').click();
-    }
+// 回车快捷发送
+document.getElementById('outfit-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('outfit-btn').click(); }
+});
+document.getElementById('gift-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('gift-btn').click(); }
+});
+document.getElementById('route-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('route-btn').click(); }
 });
 </script>
 
